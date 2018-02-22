@@ -18,5 +18,6 @@ public class GreedyPig3060 {
 			}
 			System.out.println(day);
 		}
+	sc.close();
 	}
 }

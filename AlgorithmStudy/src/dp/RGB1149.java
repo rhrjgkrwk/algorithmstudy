@@ -20,6 +20,7 @@ public class RGB1149 {
 			}
 		}
 		System.out.println(dp());
+		sc.close();
 	}
 	public static int dp(){
 		for (int i = 1; i < N; i++) {

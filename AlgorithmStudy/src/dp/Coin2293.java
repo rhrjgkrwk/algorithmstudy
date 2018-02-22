@@ -14,11 +14,12 @@ public class Coin2293 {
 		for (int i = 1; i <= n; i++) {
 			coin[i] = sc.nextInt();
 		}
-		System.out.println(dp(k));
+		sc.close();
+		//System.out.println(dp(k));
 	}
-	public static int dp(int k){
+	/*public static int dp(int k){
 		//C[c,m] = 
-	}
+	}*/
 }
 
 /*

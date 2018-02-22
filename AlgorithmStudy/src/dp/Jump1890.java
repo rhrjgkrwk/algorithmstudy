@@ -1,19 +1,81 @@
 package dp;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
-
+//bfs + memo
 public class Jump1890 {
-	public static int a[][];
-	public static int d[][];
 	public static int N;
-	public static void main(String[] args) {
+	public static long [][] d;
+	public static int [][] a;
+	
+	public static void main(String[] args){
 		Scanner sc = new Scanner(System.in);
+//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
 		N = sc.nextInt();
 		a = new int[N][N];
-		d = new int[N][N];
-		while (true) {
-			
+		d = new long[N][N];
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				a[i][j] = sc.nextInt();
+			}
 		}
+		d[0][0]=1;
+		dp();
+		//bfs();
+		//dfs();
+		sc.close();
+	}
+	
+	public static void dp() {
+		
+		for (int i = 0; i < N; i++){
+			for (int j = 0; j < N; j++) {
+				if (a[i][j]!=0) {
+					if (i+a[i][j]<N) {
+						d[i+a[i][j]][j] += d[i][j];
+					}
+					if (j+a[i][j]<N) {
+						d[i][j+a[i][j]] += d[i][j];
+					}
+				}
+				else {
+					continue;
+				}
+			}
+		}
+		System.out.println(d[N-1][N-1]);
+	}
+	
+	public static void bfs(){
+		Queue<Point> q = new LinkedList<>();
+		q.add(new Point(0, 0));
+		d[0][0] = 1;
+		while (!q.isEmpty()) {
+			Point p = q.poll();
+			if (a[p.x][p.y] != 0) {
+				int nx = p.x + a[p.x][p.y]; // 아래로
+				int ny = p.y + a[p.x][p.y]; // 오른
+				if (nx >= 0 && nx < N) { // 아래로 갈 수 있으면
+					q.add(new Point(nx, p.y));
+					d[nx][p.y] += 1;
+				}
+				if (ny >= 0 && ny < N) { // 오른쪽으로 갈 수 있으면
+					q.add(new Point(p.x, ny));
+					d[p.x][ny] += 1;
+				}
+			}
+		}
+		System.out.println(d[N-1][N-1]);
+	}
+}
+class Point{
+	int x;
+	int y;
+	public Point(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 }
 /*
@@ -41,6 +103,13 @@ N×N 게임판에 수가 적혀져 있다. 이 게임의 목표는 가장 왼쪽 위 칸에서
 출력
 가장 왼쪽 위 칸에서 가장 오른쪽 아래 칸으로 문제의 규칙에 맞게 갈 수 있는 
 경로의 개수를 출력한다. 경로의 개수는 263-1보다 작거나 같다.
+
+
+4
+1 1 1 1
+1 1 1 1
+1 1 1 1
+1 1 1 0
 
 예제 입력 
 4
