@@ -16,10 +16,34 @@ public class LCS9252 {
 				else {
 					d[i][j]=Math.max(d[i][j-1],d[i-1][j]);	
 				}
-				System.out.printf("d[%d][%d] = %d " ,i, j, d[i][j]);
-			}System.out.println();
+			}
 		}
+		String res = "";
+		for (int i = si.length()-1, j = sj.length()-1; res.length()<d[si.length()-1][sj.length()-1]; ) {
+			if (i-1>=0 && j-1>=0) {
+				if (Math.max(d[i-1][j], d[i][j-1])==d[i][j]) {
+					int max = 0;
+					if (d[i-1][j]>d[i][j-1]) {
+						max = d[i-1][j];
+						i--;
+					}
+					else {
+						max = d[i][j-1];
+						j--;
+					}
+				}
+				else {
+					res = si.charAt(i) + res;
+					i--; j--;
+				}
+			}
+			else {
+				break;
+			}
+		}
+		
 		System.out.println(d[si.length()-1][sj.length()-1]);
+		System.out.println(res);
 		sc.close();
 	}
 }
