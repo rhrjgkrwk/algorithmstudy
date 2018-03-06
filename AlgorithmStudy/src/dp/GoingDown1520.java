@@ -1,12 +1,25 @@
 package dp;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
+
+
+class P{
+	int i;
+	int j;
+	public P(int i, int j) {
+		this.i = i;
+		this.j = j;
+	}
+}
 
 public class GoingDown1520 {
 	public static int dp[][] = new int[501][501];
 	public static int map[][] = new int[501][501];
 	public static int N;
 	public static int M;
+	public static int tmp = 0;
 	public static int di[] = { 0, -1, 0, 1 };
 	public static int dj[] = { -1, 0, 1, 0 };
 
@@ -15,43 +28,46 @@ public class GoingDown1520 {
 		Scanner sc = new Scanner(System.in);
 		M = sc.nextInt(); // 세로
 		N = sc.nextInt(); // 가로
-		// 입력 및 dp테이블 초기화
+		// 입력
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < N; j++) {
 				map[i][j] = sc.nextInt();
-				if (i == 0 && j == 0)
-					dp[i][j] = 1;
-				else
-					for (int k = 0; k < 4; k++) {
-						int li = i + di[k];
-						int lj = j + dj[k];
-						if (li >= 0 && lj >= 0 && li < M && lj < N && map[li][lj] > map[i][j] && dp[li][lj] != 0) {
-							dp[i][j] = 1;
-						}
-					}
+				dp[i][j] = -1;
 			}
 		}
-
-		// dp
-		for (int i = 0; i < M; i++) {
-			for (int j = 0; j < N; j++) {
-				if (i == 0 && j == 0) {
-					continue;
-				} else {
-					int tot = 0;
-					for (int k = 0; k < 4; k++) {
-						int li = i + di[k];
-						int lj = j + dj[k];
-						if (li >= 0 && lj >= 0 && li < M && lj < N && map[li][lj] > map[i][j] && dp[li][lj] > 0) {
-							tot += dp[li][lj];
-						}
-					}
-					dp[i][j] = tot;
+		System.out.println(dfs(0,0));
+		System.out.println(tmp);
+		sc.close();
+	}
+	public static void bfs(){ //시간초과
+		Queue<P> q = new LinkedList<P>();
+		q.add(new P(0,0));
+		while (!q.isEmpty()) {
+			P p = q.poll();
+			dp[p.i][p.j]++;
+			for (int k = 0; k < 4; k++) {
+				int li = p.i + di[k];
+				int lj = p.j + dj[k];
+				if (li >= 0 && lj >= 0 && li < M && lj < N && map[li][lj] < map[p.i][p.j]) {
+					q.add(new P(li, lj));
 				}
 			}
 		}
-		System.out.println(dp[M - 1][N - 1]);
-		sc.close();
+	}
+	
+	public static int dfs(int i, int j){ //dfs+memoization
+		tmp++;
+		if (i==M-1 && j== N-1) return 1; //도착
+		if (dp[i][j]!=-1) return dp[i][j]; //이미 방문한 곳은 그냥 그대로 리턴해준다.
+		int count = 0;
+		for (int k = 0; k < 4; k++) {
+			int li = i + di[k];
+			int lj = j + dj[k];
+			if (li >= 0 && lj >= 0 && li < M && lj < N && map[li][lj] < map[i][j]) {
+					count += dfs(li, lj); //자신이 호출할 수 있는 모든 곳의 경우의 수를 카운트에 담고
+			}
+		}
+		return dp[i][j] = count; //카운트 결과를 자신에게 담는다.
 	}
 }
 /*
@@ -92,6 +108,67 @@ for (int i = 0; i < M; i++) {
 35 50 40 20 25
 30 30 25 17 28
 27 24 22 15 10
+
+5 5
+18 17 16 15 14
+2 2 2 2 13
+8 9 10 11 12
+7 2 2 2 2 
+6 5 4 3 2
+
 예제 출력 
 3
 */
+
+
+
+
+
+/////////dp
+
+
+
+/*
+public static void dp(){ //실패.. 진행방향이 "<--" 인 경우가 안잡힌다.
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+			if (i == 0 && j == 0)
+				dp[i][j] = 1;
+			else
+				for (int k = 0; k < 4; k++) {
+					int li = i + di[k];
+					int lj = j + dj[k];
+					if (li >= 0 && lj >= 0 && li < M && lj < N && map[li][lj] > map[i][j] && dp[li][lj] != 0) {
+						dp[i][j] = 1;
+					}
+				}
+		}
+	}
+
+	// dp
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+			if (i == 0 && j == 0) {
+				continue;
+			} else {
+				int tot = 0;
+				for (int k = 0; k < 4; k++) {
+					int li = i + di[k];
+					int lj = j + dj[k];
+					if (li >= 0 && lj >= 0 && li < M && lj < N && map[li][lj] > map[i][j] && dp[li][lj] > 0) {
+						tot += dp[li][lj];
+					}
+				}
+				dp[i][j] = tot;
+			}
+		}
+	}
+}
+*/
+
+
+
+
+
+
+
