@@ -1,13 +1,14 @@
 package graph;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
 
 class Dij implements Comparable<Dij>{
-	int v;
-	int w;
+	int v; //to
+	int w; //weight
 	public Dij(int v, int w) {
 		this.v = v;
 		this.w = w;
@@ -15,7 +16,7 @@ class Dij implements Comparable<Dij>{
 	@Override
 	public int compareTo(Dij o) {
 		// TODO Auto-generated method stub
-		return  o.w - this.w;
+		return   this.w - o.w;
 	}
 }
 public class ShortestPath1753_Dijkstra {
@@ -24,8 +25,8 @@ public class ShortestPath1753_Dijkstra {
 	public static int E; //간선의 수
 	public static int K; //시작 점.
 	public static int d[]; //최단 거리 정보를 담을 배열
-	public static boolean visit[]; //최단 거리 정보를 담을 배열
-	public static int weight[][]; //최단 거리 정보를 담을 배열
+	public static boolean visit[]; //노드 방문 여부.
+	public static ArrayList<ArrayList<Dij>> list = new ArrayList<ArrayList<Dij>>(); //최단 거리 정보를 담을 배열
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -33,13 +34,15 @@ public class ShortestPath1753_Dijkstra {
 		E = sc.nextInt();
 		K = sc.nextInt();
 		d = new int[V+1];
-		weight = new int[V+1][V+1];
+		visit = new boolean[V+1];
+		for (int i = 0; i < V+1; i++) {
+			list.add(new ArrayList<>());
+		}
 		for (int i = 0; i < E; i++) {
 			int a = sc.nextInt();
 			int b = sc.nextInt();
 			int c = sc.nextInt();
-			
-			weight[a][b]=weight[a][b]>c?c:weight[a][b];
+			list.get(a).add(new Dij(b,c));
 		}
 		Arrays.fill(d, INF);
 		d[K] = 0;
@@ -55,18 +58,22 @@ public class ShortestPath1753_Dijkstra {
 		PriorityQueue<Dij> pq = new PriorityQueue<>();
 		pq.add(new Dij(s, d[s]));
 		while (!pq.isEmpty()) { 
-			int cost = pq.peek().w; //시작점 기준으로 가장 가까운 점을 먼저 pop
-			int now = pq.peek().v; 
+			int dist = pq.peek().w; //시작점 기준 거리.
+			// 시작점 기준으로 가장 가까운 점을 먼저 pop
+			int now = pq.peek().v;
 			pq.poll();
-			if (cost>d[now]) {//현재 최단거리보다 크면 고려할 필요 없음.
+			visit[now] = true;
+			System.out.println("현재 노드 : " + now);
+			if (dist > d[now]) {// 현재 최단거리보다 크면 고려할 필요 없음.
 				continue;
 			}
-			for (int i = 1; i < weight[now].length; i++) {
-				if (weight[now][i]!=0 && d[i] > d[now]+weight[now][i]) { //갈 수 있는 다음 노드를 가져와서 pq에 넣는다.
-					d[i] = d[now]+weight[now][i];
-					pq.add(new Dij(i,d[i]));
+			for (int i = 0; i < list.get(now).size(); i++) {
+				Dij next = list.get(now).get(i);
+				if (!visit[next.v] && d[next.v] > d[now] + next.w) { // 갈 수 있는 다음 노드를 가져와서 pq에// 넣는다.
+					d[next.v] = d[now] + next.w;
+					pq.add(new Dij(next.v, d[next.v]));
 				}
-			}			
+			}
 		}
 	}
 }
@@ -83,7 +90,7 @@ public class ShortestPath1753_Dijkstra {
 
 입력
 첫째 줄에 정점의 개수 V와 간선의 개수 E가 주어진다.
- (1≤V≤20,000, 1≤E≤300,000) 모든 정점에는 1부터 V까지
+ (1≤V≤20,000, 1≤E≤300,000) 모든 정점에는 1부터 V까지 -----여기서 런타임 에러 : 인접행렬로 구현하면 메모리 초과가 뜬
   번호가 매겨져 있다고 가정한다. 둘째 줄에는 시작 정점의
    번호 K(1≤K≤V)가 주어진다. 셋째 줄부터 E개의 줄에 걸쳐 
    각 간선을 나타내는 세 개의 정수 (u, v, w)가 순서대로 주어진다. 
@@ -97,7 +104,7 @@ public class ShortestPath1753_Dijkstra {
 
 예제 입력 
 5 6
-3
+5
 5 1 1
 1 2 2
 1 3 3
