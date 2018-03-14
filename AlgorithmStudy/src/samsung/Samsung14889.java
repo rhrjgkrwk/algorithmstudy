@@ -3,6 +3,7 @@ package samsung;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Samsung14889 {
@@ -12,15 +13,52 @@ public class Samsung14889 {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(br.readLine());
-		for (int i = 0; i < N; i++) {
+		team = new int[N+1][N+1];
+		for (int i = 1; i <= N; i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-			int j = 0;
+			int j = 1;
 			while (st.hasMoreTokens()) {
-				if(i<j)team[i][j] = Integer.parseInt(st.nextToken());
+				if(i<j)team[i][j] += Integer.parseInt(st.nextToken());
 				else team[j][i] += Integer.parseInt(st.nextToken());
 				j++;
 			}
 		}
+		System.out.println(dfs(0,1,new boolean[N+1]));
+	}
+	public static int dfs(int count, int now, boolean []list){
+		if (now == N+1 && count < N/2) {
+			return Integer.MAX_VALUE;
+		}
+		if (count == N / 2) {
+			return calculateGap(list);
+		}
+		list[now] = false;
+		int n = dfs(count, now + 1, list.clone());
+		list[now] = true;
+		int m = dfs(count+1, now + 1, list.clone());
+		return n>m?m:n;
+	}
+	public static int calculateGap(boolean[] list){
+		int startSum = 0;
+		int linkSum = 0;
+		for (int i = 1; i < list.length-1; i++) {
+			if (list[i]) {
+				for (int j = i+1; j < list.length; j++) {
+					if (list[j]) {
+						startSum+=team[i][j];
+					}
+				}
+			}
+			else {
+				for (int j = i+1; j < list.length; j++) {
+					if (!list[j]) {
+						linkSum+=team[i][j];
+					}
+				}
+			}
+		}
+//		System.out.println(startSum+"-"+linkSum);
+		return Math.abs(startSum-linkSum);
 	}
 }
 /*
