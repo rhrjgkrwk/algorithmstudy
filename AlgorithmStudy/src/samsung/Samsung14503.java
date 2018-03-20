@@ -34,11 +34,7 @@ public class Samsung14503 {
 		}
 		boolean flag = true;
 		while (!q.isEmpty() && flag) {
-			P p = q.poll();
-			
-			
-			
-			
+			P p = q.poll();			
 			map[p.r][p.c] = -1; //청소를 한 곳은 -1
 			
 			int initDir = p.dir;
