@@ -96,16 +96,6 @@ public class Samsung14499 {
 			horizental[(4+horNow-2)%4] = vertical[(4+verNow-2)%4]; //반대편에 있는 수가 바뀜
 			System.out.println(vertical[verNow]);
 		}
-//		System.out.println("comm : "+command);
-//		System.out.println(x+","+y+ " : " + map[x][y]);
-//		System.out.println("verNow : "+verNow);
-//		for (int i = 0; i < horizental.length; i++) {
-//			System.out.print(vertical[i]+" ");
-//		}System.out.println();
-//		System.out.println("horNow : "+horNow);
-//		for (int i = 0; i < horizental.length; i++) {
-//			System.out.print(horizental[i]+" ");
-//		}System.out.println();
 	}
 }
 
