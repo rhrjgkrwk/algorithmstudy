@@ -6,6 +6,17 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+/*
+<Dijkstra>
+0. 초기화 : d[] = inf (시작점은 0), visit[] = false, 인접리스트 또는 인접행렬을 이용해서 그래프 표현 
+1. 아직 방문하지 않은 점 중 시작점으로부터 가장 가까운 점(이하 선택점)을 선택하고 방문한다.(pq이용하거나 이중루프로 찾는다.)
+2. 선택점(now) 기준 인접한 점(adjs)들을 살피고 기존 입력된 거리(d[adjs])보다 현재 선택점을 통해 온 경로가 
+   더 작다면 (d[adjs] > d[now]+adjs.weight) d[adjs]를 업데이트해준다.
+*. 초기 입력의 경우 d[]에 inf가 차있고 시작점만 0이므로 최솟값인 0부터 시작하게된다. 
+*. 시작점을 기준으로 인접한 점들의 거리를 d[] 배열에 입력하고 1.2의 과정을 반복
+*/
+
+
 class Bus{
 	int vertex;
 	int adjVertex;
