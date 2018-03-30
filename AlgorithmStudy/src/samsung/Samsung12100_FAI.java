@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class Samsung12100_FAIL {
+public class Samsung12100_FAI {
 	public static int map[][];
 	public static int start[] = {3,0,0,3};
 	public static int N;
