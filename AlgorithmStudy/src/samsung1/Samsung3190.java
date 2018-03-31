@@ -1,4 +1,4 @@
-package samsung;
+package samsung1;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
