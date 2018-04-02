@@ -29,15 +29,15 @@ public class Samsung1525 {
 	}
 
 	public static void dfs(int pos, int count) {
-		map.put(board, count);
+		
 		
 		for (int i = 0; i < moveability.length; i++) {
 			int npos = -1;
-			if (moveability[i] == -1) {
+			if (moveability[i] == 1) {
 				if (pos % 3 != 0) {
 					npos = pos + moveability[i];
 				}
-			} else if (moveability[i] == 1) {
+			} else if (moveability[i] == -1) {
 				if (pos % 3 != 2) {
 					npos = pos + moveability[i];
 				}
@@ -48,6 +48,7 @@ public class Samsung1525 {
 			if (npos < 9 && npos >= 0) {
 				swap(pos, npos);
 				if (!map.containsKey(board)) {
+					map.put(board, count);
 					dfs(npos, count + 1);
 				}
 				else {
@@ -55,7 +56,7 @@ public class Samsung1525 {
 						map.put(board, count);
 					}
 				}
-				swap(pos, npos); // ?›?ƒë³µê?
+				swap(pos, npos); // 
 			}
 		}
 		return;
