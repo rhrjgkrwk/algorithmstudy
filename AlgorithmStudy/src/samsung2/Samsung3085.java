@@ -14,22 +14,22 @@ public class Samsung3085 {
 		}
 		int longest = 0;
 		
-		//가로로 바꾸어보자.
+		//�?로로 바꾸?��보자.
 		for (int i = 0; i < N; i++) {
-			for (int j = 1; j < N; j++) { //하나 선택해서 바꾸어보
+			for (int j = 1; j < N; j++) { //?��?�� ?��?��?��?�� 바꾸?���?
 				swap(i, j, i, j-1);
 				int tmp = longestCandy();
 				longest = tmp>longest?tmp:longest;
-				swap(i, j, i, j-1); //원상복귀.
+				swap(i, j, i, j-1); //?��?��복�?.
 			}
 		}
-		//세로로 바꾸어보자. 세로할때는저장된longestq보다 긴지 확인 후 저장.
+		//?��로로 바꾸?��보자. ?��로할?��?��???��?��longestq보다 긴�? ?��?�� ?�� ???��.
 		for (int i = 0; i < N; i++) {
-			for (int j = 1; j < N; j++) { //인접한 둘 선택해서 바꾸어보
+			for (int j = 1; j < N; j++) { //?��?��?�� ?�� ?��?��?��?�� 바꾸?���?
 				swap(j, i, j-1, i);
 				int tmp = longestCandy();
 				longest = tmp>longest?tmp:longest;
-				swap(j, i, j-1, i); //원상복귀.
+				swap(j, i, j-1, i); //?��?��복�?.
 			}
 		}
 		System.out.println(longest);
@@ -75,21 +75,21 @@ public class Samsung3085 {
 	}
 }
 /*
-입력
-첫째 줄에 보드의 크기 N이 주어진다. (3 ≤ N ≤ 50)
+?��?��
+첫째 줄에 보드?�� ?���? N?�� 주어진다. (3 ?�� N ?�� 50)
 
-다음 N개 줄에는 보드에 채워져 있는 사탕의 색상이 주어진다. 빨간색은 C, 파란색은 P, 초록색은 Z, 노란색은 Y로 주어진다.
+?��?�� N�? 줄에?�� 보드?�� 채워?�� ?��?�� ?��?��?�� ?��?��?�� 주어진다. 빨간?��?? C, ?��???��?? P, 초록?��?? Z, ?��???��?? Y�? 주어진다.
 
 출력
-첫째 줄에 상근이가 먹을 수 있는 사탕의 최대 개수를 출력한다.
+첫째 줄에 ?��근이�? 먹을 ?�� ?��?�� ?��?��?�� 최�? 개수�? 출력?��?��.
 
-예제 입력 1 
+?��?�� ?��?�� 1 
 5
 YCPZY
 CYZZP
 CCPPP
 YCYZC
 CPPZZ
-예제 출력 1 
+?��?�� 출력 1 
 4
 */

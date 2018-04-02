@@ -47,9 +47,9 @@ public class SWE1949 {
 		br.close();
 	}
 
-	public static void dfs(int i, int j, int depth, boolean construction) { // cons =ê³µì‚¬ì—¬ë¶€
+	public static void dfs(int i, int j, int depth, boolean construction) { // cons =ê³µì‚¬?—¬ë¶?
 		
-		boolean flag = false; // ë”ì´ìƒ ê°ˆ ê³³ì´ ì—†ìœ¼ë©´ false / true;
+		boolean flag = false; // ?”?´?ƒ ê°? ê³³ì´ ?—†?œ¼ë©? false / true;
 		for (int k = 0; k < 4; k++) {
 			int nx = i + dx[k];
 			int ny = j + dy[k];
@@ -57,9 +57,9 @@ public class SWE1949 {
 				flag = true;
 				dfs(nx, ny, depth + 1, false);
 			} else if (nx >= 0 && nx < N && ny >= 0 && ny < N && map[nx][ny] - K < map[i][j] && !construction) { 
-				// ê³µì‚¬ë¥¼ í•œë‹¤. - ê³µì‚¬ì—¬ë¶€ true;
+				// ê³µì‚¬ë¥? ?•œ?‹¤. - ê³µì‚¬?—¬ë¶? true;
 				
-				// ì•ˆí•œë‹¤. ì•ˆí•˜ëŠ” ê²½ìš° continue;
+				// ?•ˆ?•œ?‹¤. ?•ˆ?•˜?Š” ê²½ìš° continue;
 			}
 		}
 		if (flag) {

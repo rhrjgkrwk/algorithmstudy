@@ -24,11 +24,11 @@ class Log {
 public class Samsung1938_2 {
 	public static int N;
 	public static int dx[] = { -1, 0, 1, 0 };
-	public static int dy[] = { 0, 1, 0, -1 }; // ìˆœì„œëŒ€ë¡œ ìœ„ì˜¤ì•„ì™¼
+	public static int dy[] = { 0, 1, 0, -1 }; // ?ˆœ?„œ??ë¡? ?œ„?˜¤?•„?™¼
 
 	public static Log startingPoint = null;
 	public static Log destination = null;
-	public static int visit[][][]; // 0 = í†µë‚˜ë¬´ê°€ 0ë°©í–¥ì¼ë•Œ
+	public static int visit[][][]; // 0 = ?†µ?‚˜ë¬´ê? 0ë°©í–¥?¼?•Œ
 	public static char[][] map;
 
 	public static void main(String[] args) throws IOException {
@@ -39,7 +39,7 @@ public class Samsung1938_2 {
 		for (int i = 0; i < N; i++) {
 			map[i] = br.readLine().toCharArray();
 		}
-		//ì‹œì‘ì  ë„ì°©ì ì„ ì°¾ì•„ë³´ì. ì²˜ìŒ ë°œê²¬í•œ ì  ê¸°ì¤€ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ìˆìœ¼ë©´ - ì•„ë˜ë¡œ ìˆìœ¼ë©´ |
+		//?‹œ?‘?  ?„ì°©ì ?„ ì°¾ì•„ë³´ì. ì²˜ìŒ ë°œê²¬?•œ ?  ê¸°ì? ?˜¤ë¥¸ìª½?œ¼ë¡? ?ˆ?œ¼ë©? - ?•„?˜ë¡? ?ˆ?œ¼ë©? |
 		for (int i = 0; i <N; i++) {
 			for (int j = 0; j < N; j++) {
 				if (map[i][j]=='B') { //ì¶œë°œ 
@@ -51,7 +51,7 @@ public class Samsung1938_2 {
 						}
 					}
 				}
-				if (map[i][j]=='E') { //ë„ì°© 
+				if (map[i][j]=='E') { //?„ì°? 
 					for (int k = 1; k <= 2; k++) {
 						int ni = i + dx[k];
 						int nj = j + dy[k];
@@ -83,7 +83,7 @@ public class Samsung1938_2 {
 //				}System.out.println();
 //			}
 			
-			//ëª©ì ì§€ ë„ì°© í–ˆìœ¼ë©´ 
+			//ëª©ì ì§? ?„ì°? ?–ˆ?œ¼ë©? 
 			if (now.x == destination.x && now.y == destination.y ) {
 				if (now.dir == destination.dir) return now.count;
 				else {
@@ -93,7 +93,7 @@ public class Samsung1938_2 {
 				}
 			}
 
-			// íšŒì „ ë”°ë¡œ ì´ë™ ë”°ë¡œ ê°€ì¢
+			// ?šŒ? „ ?”°ë¡? ?´?™ ?”°ë¡? ê°?ì¢?
 			if (canIRotateTheLog(now)) {
 				int ndir = (now.dir + 1) % 2;
 				if (visit[ndir][now.x][now.y] == 0) {
@@ -125,7 +125,7 @@ public class Samsung1938_2 {
 		return true;
 	}
 
-	public static boolean canIMoveTheLog(Log now, int direction) { // ì—¬ê¸°ã…£ì„œ directionì€ ìœ„ì˜¤ì•„ì™¼ ìˆœì˜ ìˆ«ì.
+	public static boolean canIMoveTheLog(Log now, int direction) { // ?—¬ê¸°ã…£?„œ direction?? ?œ„?˜¤?•„?™¼ ?ˆœ?˜ ?ˆ«?.
 		// status of the log
 		if (now.dir == 0) { // log dir : |
 			if (direction == 0) {

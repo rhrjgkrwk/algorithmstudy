@@ -16,19 +16,19 @@ public class Samsung1018 {
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
 		board = new String[N];
-		chk = new int[N][M]; //0,0ì— Wë¡œ ì‹œì‘í•˜ëŠ” ê²ƒì„ ê¸°ì¤€ìœ¼ë¡œ ì¹´ìš´íŠ¸í•œë‹¤.
+		chk = new int[N][M]; //0,0?— Wë¡? ?‹œ?‘?•˜?Š” ê²ƒì„ ê¸°ì??œ¼ë¡? ì¹´ìš´?Š¸?•œ?‹¤.
 		for (int i = 0; i < N; i++) {
 			board[i] = br.readLine();
 
 			for (int j = 0; j < M; j++) {
-				// ìˆ˜ì •í•´ì•¼í•  ë¶€ë¶„ chk 0,0 w ì‹œì‘ì„ ê¸°ì¤€ìœ¼ë¡œ í•œë‹¤.
-				if (i % 2 == 0) { // ì§ jì— W í™€ jì— B (0ë¶€í„° ì‹œì‘í•˜ë‹ˆê¹.)
+				// ?ˆ˜? •?•´?•¼?•  ë¶?ë¶? chk 0,0 w ?‹œ?‘?„ ê¸°ì??œ¼ë¡? ?•œ?‹¤.
+				if (i % 2 == 0) { // ì§? j?— W ?? j?— B (0ë¶??„° ?‹œ?‘?•˜?‹ˆê¹?.)
 					if (j % 2 == 0) {
 						chk[i][j] = board[i].charAt(j)=='W'?0:1;
 					} else {
 						chk[i][j] = board[i].charAt(j)=='B'?0:1;
 					}
-				} else { // í™€ jì— W ì§ jì— B
+				} else { // ?? j?— W ì§? j?— B
 					if (j % 2 == 0) {
 						chk[i][j] = board[i].charAt(j)=='B'?0:1;
 					} else {
