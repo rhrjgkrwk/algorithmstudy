@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Hanhwa10488 {
 	public static ArrayList<Integer> sgs = new ArrayList<>();
-
+	public static int res = 0;
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int tc = sc.nextInt();
@@ -13,7 +13,30 @@ public class Hanhwa10488 {
 			int n = sc.nextInt();
 			// n이하의 삼각수를 구한다.
 			getSamgak(n);
-			System.out.println(isEureka(n, 0, 0));
+			
+			for (Integer i : sgs) {
+				System.out.println(i);
+			}
+			
+			for (int i = 0; i < sgs.size(); i++) {
+				for (int j = i; j < sgs.size(); j++) {
+					for (int k = j; k < sgs.size(); k++) {
+						int tmp = sgs.get(i)+sgs.get(j)+sgs.get(k);
+						if (tmp==n) {
+							res = 1;
+							break;
+						}
+					}
+					if (res==1) {
+						break;
+					}
+				}
+				if (res==1) {
+					break;
+				}
+			}
+			System.out.println(res);
+			res = 0;
 		}
 		sc.close();
 		
@@ -27,7 +50,7 @@ public class Hanhwa10488 {
 		int snum = 1;
 		int lastfloor = 1;
 		while (snum <= num) {
-			lastfloor += 2;
+			lastfloor += 1;
 			snum += lastfloor;
 			if (!sgs.contains(num)) { // 이미 들어와있으면 pass
 				sgs.add(snum);
@@ -35,20 +58,4 @@ public class Hanhwa10488 {
 		}
 	}
 	
-	public static int isEureka(int num, int depth, int sum){
-		if (depth==3) {
-			if (sum==num) {
-				return 1;
-			}
-			else return 0;
-		}
-		//return 1; //possible
-		for (Integer i : sgs) {
-			if (i <= num/3) {
-				isEureka(num, depth+1, sum+i);
-			}
-			else break;
-		}
-		return 0;
-	}
 }
