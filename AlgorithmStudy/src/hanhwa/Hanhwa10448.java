@@ -3,7 +3,7 @@ package hanhwa;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Hanhwa10488 {
+public class Hanhwa10448 {
 	public static ArrayList<Integer> sgs = new ArrayList<>();
 	public static int res = 0;
 	public static void main(String[] args) {
@@ -14,9 +14,9 @@ public class Hanhwa10488 {
 			// n이하의 삼각수를 구한다.
 			getSamgak(n);
 			
-			for (Integer i : sgs) {
+		/*	for (Integer i : sgs) {
 				System.out.println(i);
-			}
+			}*/
 			
 			for (int i = 0; i < sgs.size(); i++) {
 				for (int j = i; j < sgs.size(); j++) {
@@ -50,11 +50,12 @@ public class Hanhwa10488 {
 		int snum = 1;
 		int lastfloor = 1;
 		while (snum <= num) {
-			lastfloor += 1;
-			snum += lastfloor;
 			if (!sgs.contains(num)) { // 이미 들어와있으면 pass
 				sgs.add(snum);
 			}
+			lastfloor += 1;
+			snum += lastfloor;
+
 		}
 	}
 	
