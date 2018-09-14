@@ -1,6 +1,5 @@
 package dfsbfs;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Algo9466 {
@@ -10,55 +9,59 @@ public class Algo9466 {
 		int testCase = sc.nextInt();
 		for (int tc = 0; tc < testCase; tc++) {
 			int n = sc.nextInt();
-			int pick[] = new int [n+1];
-			boolean isBelonged [] = new boolean[n+1];
+			int map[] = new int [n+1];
+			int visit[] = new int [n+1];
+			boolean team [] = new boolean[n+1];
 			
-			//학생들의 선택 입력 
 			for (int i = 1; i <= n; i++) {
-				pick[i] = sc.nextInt();
+				map[i] = sc.nextInt();
 			}
 			
-			//팀 구성판별.
-			for (int start = 1; start <= n; start++) {
-				if (isBelonged[start]) { //이미 속한 팀이 있으면 pass.
-					continue;
-				}
-				
-				//q에 현재 학생간 연결 상태를 ㅔush 하고 peek과 현재 학생과 같으면 cycle이 형성되므로 한 팀이다. 
-				ArrayList<Integer> q = new ArrayList<>();
-				q.add(start);
-				int next = pick[start];
-				int count = 1;
-				
-				while (count < n) {
-					if (q.contains(next)) {
-						for (int i = q.indexOf(next); i < q.size(); i++) {
-							isBelonged[q.get(i)] = true;
-						}
-						break;
-					}
-					
-					if (isBelonged[next]) {
-						break;
-					}
-					
-					
-					q.add(next);
-					
-					next = pick[next];
-					count++;
-				}
-				
-			}
-			//결과 출력
-			int result = 0;
-			for (int i = 1; i < isBelonged.length; i++) {
-				if (!isBelonged[i]) {
-					result++;
+			for (int i = 1; i <= n; i++) {
+				if (visit[i] == 0) {
+					dfs(i, i, map, visit, team);
 				}
 			}
-			System.out.println(result);
+			
+			int res = 0;
+			for (int i = 1; i < team.length; i++) {
+				if (!team[i]) {
+					res++;
+				}
+			}
+			System.out.println(res);
 		}
+		sc.close();
+	}
+	public static int dfs(int startNum, int now, int map[], int visit[], boolean team[]) {
+		visit[now] = startNum;
+		
+		if (visit[map[now]] !=0 && visit[map[now]] != startNum) {
+			return -1;
+		}
+		
+		if (now == map[now]) {
+			team[now] = true;
+			return -1;
+		}
+		
+		if (visit[now] == visit[map[now]]) {
+			team[now] = true;
+			return map[now];
+		}
+		
+		int temp = dfs(startNum, map[now], map, visit, team);
+		
+		if (temp == now) {
+			team[now] = true;
+			return -1;
+		}
+		else if (temp > 0) {
+			team[now] = true;
+			return temp;
+		}
+		
+		return -1;
 	}
 }
 /*
@@ -102,3 +105,44 @@ s1이 s2를 선택하고, s2가 s3를 선택하고,..., sr-1이 sr을 선택하�
 3
 0
 */
+//			
+//			//팀 구성판별.
+//			for (int start = 1; start <= n; start++) {
+//				if (isBelonged[start]) { //이미 속한 팀이 있으면 pass.
+//					continue;
+//				}
+//				
+//				//q에 현재 학생간 연결 상태를 ㅔush 하고 peek과 현재 학생과 같으면 cycle이 형성되므로 한 팀이다. 
+//				ArrayList<Integer> q = new ArrayList<>();
+//				q.add(start);
+//				int next = pick[start];
+//				int count = 1;
+//				
+//				while (count < n) {
+//					if (q.contains(next)) {
+//						for (int i = q.indexOf(next); i < q.size(); i++) {
+//							isBelonged[q.get(i)] = true;
+//						}
+//						break;
+//					}
+//					
+//					if (isBelonged[next]) {
+//						break;
+//					}
+//					
+//					
+//					q.add(next);
+//					
+//					next = pick[next];
+//					count++;
+//				}
+//				
+//			}
+//			//결과 출력
+//			int result = 0;
+//			for (int i = 1; i < isBelonged.length; i++) {
+//				if (!isBelonged[i]) {
+//					result++;
+//				}
+//			}
+//			System.out.println(result);
